@@ -15,7 +15,7 @@ This repository reproduces the VPN setup inspected on the existing server:
 Run this on a clean Ubuntu server as a user with `sudo`:
 
 ```bash
-git clone <repo-url> kvpn
+git clone https://github.com/khvilon/kvpn.git
 cd kvpn
 sudo bash install.sh
 ```
@@ -24,10 +24,10 @@ At the end, the script prints a `vless://...` URL. Copy it into a client that su
 
 ## One command
 
-After publishing this repository, replace `<repo-url>` with the real URL:
+Install in one command:
 
 ```bash
-git clone <repo-url> kvpn && cd kvpn && sudo bash install.sh
+git clone https://github.com/khvilon/kvpn.git && cd kvpn && sudo bash install.sh
 ```
 
 ## Custom SNI
