@@ -27,7 +27,7 @@ At the end, the script prints a `vless://...` URL. Copy it into a client that su
 Install in one command:
 
 ```bash
-git clone https://github.com/khvilon/kvpn.git && cd kvpn && sudo bash install.sh
+curl -fsSL https://raw.githubusercontent.com/khvilon/kvpn/master/install.sh | sudo bash
 ```
 
 ## Custom SNI
@@ -35,7 +35,7 @@ git clone https://github.com/khvilon/kvpn.git && cd kvpn && sudo bash install.sh
 The inspected server uses `www.microsoft.com`. To use another SNI:
 
 ```bash
-sudo bash install.sh www.cloudflare.com
+curl -fsSL https://raw.githubusercontent.com/khvilon/kvpn/master/install.sh | sudo bash -s -- www.cloudflare.com
 ```
 
 ## What the script does
