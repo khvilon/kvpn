@@ -1,0 +1,5 @@
+.env
+.env.*
+xray-reality-client.txt
+*.log
+*.tmp
