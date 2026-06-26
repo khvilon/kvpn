@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KVPN Admin</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>KVPN Admin</h1>
+        <p>VLESS REALITY keys and Xray diagnostics</p>
+      </div>
+      <nav class="tabs" aria-label="Sections">
+        <button class="tab active" data-tab="keys">Keys</button>
+        <button class="tab" data-tab="logs">Logs</button>
+      </nav>
+    </header>
+
+    <main>
+      <section id="keys" class="panel active">
+        <div class="toolbar">
+          <h2>Keys</h2>
+          <button id="create-key" class="primary">Create key</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Comment</th>
+                <th>Email</th>
+                <th>Uploaded</th>
+                <th>Downloaded</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="keys-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="logs" class="panel">
+        <div class="toolbar">
+          <h2>Logs</h2>
+          <div class="segmented">
+            <button class="log-tab active" data-file="error">Errors</button>
+            <button class="log-tab" data-file="access">Access</button>
+          </div>
+        </div>
+        <pre id="log-output" class="logs"></pre>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

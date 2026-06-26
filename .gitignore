@@ -1,5 +1,7 @@
 .env
 .env.*
+data/
+node_modules/
 xray-reality-client.txt
 *.log
 *.tmp

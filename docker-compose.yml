@@ -1,0 +1,61 @@
+name: kvpn
+
+services:
+  migrator:
+    build:
+      context: .
+      dockerfile: docker/migrator/Dockerfile
+    container_name: kvpn-migrator
+    privileged: true
+    pid: host
+    restart: "no"
+    environment:
+      ADMIN_PORT: ${ADMIN_PORT:-8443}
+    volumes:
+      - ./data:/app/data
+      - /usr/local/etc/xray:/host/usr/local/etc/xray:ro
+
+  admin:
+    build:
+      context: .
+      dockerfile: docker/admin/Dockerfile
+      args:
+        XRAY_VERSION: ${XRAY_VERSION:-26.2.6}
+    container_name: kvpn-admin
+    restart: unless-stopped
+    environment:
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_PORT: "8443"
+      ADMIN_PUBLIC_PORT: ${ADMIN_PORT:-8443}
+      PUBLIC_HOST: ${PUBLIC_HOST:-}
+      SNI: ${SNI:-www.cloudflare.com}
+      DATA_DIR: /app/data
+      XRAY_API_HOST: xray
+      XRAY_API_PORT: "10085"
+    ports:
+      - "${ADMIN_PORT:-8443}:8443"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
+      xray:
+        condition: service_started
+
+  xray:
+    build:
+      context: .
+      dockerfile: docker/xray/Dockerfile
+      args:
+        XRAY_VERSION: ${XRAY_VERSION:-26.2.6}
+    container_name: kvpn-xray
+    restart: unless-stopped
+    ports:
+      - "443:443"
+    volumes:
+      - ./data/xray:/etc/xray
+      - ./data/logs:/var/log/xray
+    depends_on:
+      migrator:
+        condition: service_completed_successfully
